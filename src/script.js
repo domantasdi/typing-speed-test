@@ -150,11 +150,6 @@ function endTyping() {
 }
 
 
-// This function clears the text area
-// function clearTextArea() {
-//     textArea.innerHTML = '';
-// }
-
 function clearTextInput() {
     setTimeout(
         () => {
