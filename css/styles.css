@@ -1,0 +1,108 @@
+body {
+    padding: 96px 20% 48px 20%;
+    line-height: 200%;
+    font-size: 18px;
+    text-align: justify;
+    font-family: monospace;
+}
+
+.stats {
+    display: flex;
+    flex-direction: row;
+}
+
+.stats .results {
+    color: #999999;
+    font-size: 16px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 48px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.results li {
+    text-align: right;
+    list-style: none;
+}
+
+.results li:first-child {
+    text-align: left;
+}
+
+.results li p {
+    margin: 0px;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #999999;
+    border-radius: 4px;
+    background-color: #fff;
+    outline: none;
+    margin-top: 48px;
+    transition: transform 0.3s ease;
+}
+
+button:hover {
+    border: 1px solid #b019bb;
+}
+
+.correct:not(:first-child) {
+    border-radius: 0px;
+}
+
+.correct:first-child {
+    border-radius: 4px 0px 0px 4px;
+}
+
+.correct:last-child {
+    border-radius: 0px 4px 4px 0px;
+}
+
+.correct {
+    background-color: #ebfcf7;
+    color: #1a9371;
+}
+
+.incorrect {
+    background-color: #f7f4f4;
+    color: #c93644;
+}
+
+letter {
+    position: relative;
+}
+
+.active {
+    color: #003049;
+    font-weight: 700;
+}
+
+.active::before {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: #003049;
+    animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+    50%{
+        opacity: 1;
+    }
+}
+
+/* .input-field {
+    z-index: -999;
+    position: absolute;
+    opacity: 0;
+} */
