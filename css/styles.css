@@ -129,6 +129,21 @@ aside {
     body {
         padding: 96px 10% 48px 10%;
     }
+
+    .stats {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stats .results {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+    }
+
+    .stats .results li {
+        text-align: left;
+    }
 }
 
 
@@ -161,9 +176,25 @@ aside {
     margin-top: 48px;
 }
 
-.results-grid .data-grid {
-    display: flex;
-    justify-content: space-between;
+.results-grid #data-grid {
+    width: 100%;
+    font-size: 14px;
+}
+
+.results-grid #data-grid > thead > tr > th:not(:first-child) {
+    text-align: right;
+}
+
+.results-grid #data-grid > thead > tr > th:first-child {
+    width: 50%;
+}
+
+/* .results-grid #data-grid > tbody > tr {
+    font-size: 14px;
+} */
+
+.results-grid #data-grid > tbody > tr > td:not(:first-child) {
+    text-align: right;
 }
 
 .col-timestamp-header, .col-mistakes-header, .col-wpm-header, .col-accuracy-header, .col-direction-header {

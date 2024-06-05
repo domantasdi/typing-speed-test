@@ -4,6 +4,9 @@ const mistakesField = document.querySelector('.mistakes span');
 const timeField = document.querySelector('.time span b');
 const wpmField = document.querySelector('.wpm span');
 const accuracyField = document.querySelector('.accuracy span');
+const timestamp = Date.now();
+const table = document.querySelector('#data-grid .table-contents');
+
 
 let timer
 const MAX_TIME = 60;
@@ -24,6 +27,22 @@ async function initialize() {
     const data = await loadText();
     displayText(data);
     handleTyping();
+}
+
+
+function updateTable(timestamp, mistakes, wpm, accuracy) {
+    let row = table.insertRow(0);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    let cell4 = row.insertCell(3);
+    let cell5 = row.insertCell(4);
+
+    cell1.innerText = calculateDate(timestamp);
+    cell2.innerText = mistakes;
+    cell3.innerText = wpm;
+    cell4.innerText = accuracy;
+    cell5.innerText = '0';
 }
 
 
@@ -66,6 +85,9 @@ function updateTimer() {
     }
 }
 
+function calculateDate(timestamp) {
+    return new Date(timestamp).toLocaleString('lt')
+}
 
 function calculateAccuracy() {
     let correct = document.querySelectorAll('.correct');
@@ -93,6 +115,9 @@ function handleTyping() {
 function endTyping() {
     inputField.value = '';
     clearInterval(timer);
+    const wpm = calculateWPM();
+    const accuracy = calculateAccuracy()
+    updateTable(timestamp, mistakes, wpm, accuracy);
 }
 
 function processInput(event, characters) {
