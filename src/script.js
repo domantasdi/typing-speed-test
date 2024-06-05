@@ -3,6 +3,7 @@ const inputField = document.querySelector('.input-field');
 const mistakesField = document.querySelector('.mistakes span');
 const timeField = document.querySelector('.time span b');
 const wpmField = document.querySelector('.wpm span');
+const accuracyField = document.querySelector('.accuracy span');
 
 let timer
 const MAX_TIME = 60;
@@ -15,6 +16,7 @@ let isTyping = false;
 document.addEventListener("DOMContentLoaded", initialize);
 
 async function initialize() {
+    console.log(isTyping);
     if (inputField !== '') {
         clearTextInput();
     }
@@ -45,7 +47,13 @@ function setInitialFocus() {
 function updateStats() {
     const wpm = calculateWPM();
     mistakesField.innerText = mistakes;
-    wpmField.innerText = wpm;
+    if (wpm == Infinity || !wpm) {
+        wpmField.innerText = 0;
+    } else {
+        wpmField.innerText = wpm;
+    }
+    const accuracy = calculateAccuracy();
+    accuracyField.innerText = `${accuracy} %`;
 }
 
 
@@ -59,9 +67,11 @@ function updateTimer() {
 }
 
 
-// function calculateAccuracy() {
-
-// }
+function calculateAccuracy() {
+    let correct = document.querySelectorAll('.correct');
+    let correctCount = correct.length;
+    return Math.round((correctCount / characterIndex) * 100);
+}
 
 
 function calculateWPM() {
@@ -75,27 +85,37 @@ function calculateWPM() {
 function handleTyping() {
     const characters = textArea.querySelectorAll('letter');
 
-    if (!isTyping) {
-        timer = setInterval(updateTimer, 1000);
-        isTyping = true;
-    }
-
     inputField.addEventListener('input', (event) => {
         processInput(event, characters);
     });
 }
 
+function endTyping() {
+    inputField.value = '';
+    clearInterval(timer);
+}
 
 function processInput(event, characters) {
+    calculateAccuracy();
+
+    // Calls the updateTimer function every 1 second
+    if (!isTyping && timeLeft > 0) {
+        timer = setInterval(updateTimer, 1000);
+        isTyping = true;
+    }
+
+    // Declares the character
     const typedChar = event.target.value.split('')[characterIndex];
 
-    if (characterIndex < characters.length && timeLeft > 0) {
-        if (typedChar == null) {
-            handleBackspace(characters);
-        } else {
-            handleCharacterInput(typedChar, characters);
-        }
+    // Handles backspace or other character input
+    if (typedChar == null) {
+        handleBackspace(characters);
     } else {
+        handleCharacterInput(typedChar, characters);
+    }
+
+    // Handles the end of the test, whichever comes first.
+    if (characterIndex >= characters.length || timeLeft <= 0) {
         endTyping();
     }
 }
@@ -144,10 +164,7 @@ function displayText(data) {
         }, 10);
 }
 
-function endTyping() {
-    inputField.value = '';
-    clearInterval(timer);
-}
+
 
 
 function clearTextInput() {

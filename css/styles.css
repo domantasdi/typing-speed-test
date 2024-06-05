@@ -6,6 +6,15 @@ body {
     font-family: monospace;
 }
 
+header {
+    margin-bottom: 48px;
+}
+
+header h1 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
 .stats {
     display: flex;
     flex-direction: row;
@@ -49,7 +58,8 @@ button {
 }
 
 button:hover {
-    border: 1px solid #b019bb;
+    border: 2px solid #1a1a1a;
+    cursor: pointer;
 }
 
 .correct:not(:first-child) {
@@ -101,8 +111,61 @@ letter {
     }
 }
 
-/* .input-field {
+.input-field {
     z-index: -999;
     position: absolute;
     opacity: 0;
-} */
+}
+
+aside {
+    color: #c1c1c1;
+    margin-top: 48px;
+    font-family: arial;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+@media (max-width: 360px) {
+    body {
+        padding: 96px 10% 48px 10%;
+    }
+}
+
+
+@media (min-width: 361px) and (max-width: 768px) {
+    body {
+        padding: 96px 10% 48px 10%;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1365px) {
+    body {
+        padding: 96px 12% 48px 12%;
+    }
+}
+
+@media only screen and (min-width: 1366px) and (max-width: 1919px) {
+    body {
+        padding: 96px 20% 48px 20%;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    body {
+        padding: 96px 30% 48px 30%;
+    }
+}
+
+.results-grid {
+    margin-top: 48px;
+}
+
+.results-grid .data-grid {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-timestamp-header, .col-mistakes-header, .col-wpm-header, .col-accuracy-header, .col-direction-header {
+    font-size: 14px;
+}
