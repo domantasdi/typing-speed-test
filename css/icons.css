@@ -1,0 +1,27 @@
+.worse::after, .even::after, .better::after, .notApplicable::after {
+    display: inline-flex;
+    content: '';
+    background-size: 17px 17px;
+    height: 17px;
+    width: 17px;
+    margin-right: -8px;
+    margin-left: 4px;
+    position: relative;
+    top: 4px;
+}
+
+.notApplicable::after {
+    background-image: url(/src/svg/not_applicable.svg);
+}
+
+.worse::after {
+    background-image: url(/src/svg/worse.svg);
+}
+
+.even::after {
+    background-image: url(/src/svg/even.svg);
+}
+
+.better::after {
+    background-image: url(/src/svg/better.svg);
+}

@@ -11,6 +11,8 @@ header {
 }
 
 header h1 {
+    color: #1a1a1a;
+    margin-top: 0px;
     font-size: 16px;
     font-weight: 500;
 }
@@ -29,7 +31,7 @@ header h1 {
     margin-top: 0px;
     margin-bottom: 48px;
     width: 100%;
-    flex-direction: row;
+    /* flex-direction: row; */
     justify-content: space-between;
 }
 
@@ -143,6 +145,18 @@ aside a:hover {
         padding: 96px 10% 48px 10%;
     }
 
+    .results-grid #data-grid > thead > tr > th:nth-child(2), th:nth-child(4), th:nth-child(5) {
+        display: none;
+    }
+
+    .results-grid #data-grid > tbody > tr > td:nth-child(2), td:nth-child(4), td:nth-child(5) {
+        display: none;
+    }
+
+    .results-grid #data-grid > tbody > tr > td:nth-child(1) {
+        white-space: nowrap;
+    }
+
     .stats {
         display: flex;
         flex-direction: column;
@@ -150,36 +164,110 @@ aside a:hover {
 
     .stats .results {
         display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
+        justify-content: space-between;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .stats .results > *:nth-child(1),
+    .stats .results > *:nth-child(3) {
+    justify-self: start;
+    text-align: left;
+    }
+
+    .stats .results > *:nth-child(2),
+    .stats .results > *:nth-child(4) {
+    justify-self: end;
+    text-align: right;
+    }
+}
+
+@media (min-width: 361px) and (max-width: 539px) {
+    body {
+        padding: 96px 10% 48px 10%;
+        font-size: 16px;
+    }
+
+    .stats {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stats .results {
+        display: grid;
+        justify-content: space-between;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .stats .results > *:nth-child(1),
+    .stats .results > *:nth-child(3) {
+    justify-self: start;
+    text-align: left;
+    }
+
+    .stats .results > *:nth-child(2),
+    .stats .results > *:nth-child(4) {
+    justify-self: end;
+    text-align: right;
     }
 
     .stats .results li {
         text-align: left;
     }
+
+    .results-grid #data-grid > thead > tr > th:nth-child(2), th:nth-child(4) {
+        display: none;
+    }
+
+    .results-grid #data-grid > tbody > tr > td:nth-child(2), td:nth-child(4) {
+        display: none;
+    }
 }
 
-
-@media (min-width: 361px) and (max-width: 768px) {
+@media (min-width: 540px) and (max-width: 768px) {
     body {
         padding: 96px 10% 48px 10%;
         font-size: 16px;
     }
+
+    .results-grid #data-grid > thead > tr > th:nth-child(2) {
+        display: none;
+    }
+
+    .results-grid #data-grid > tbody > tr > td:nth-child(2) {
+        display: none;
+    }
+
 }
 
-@media only screen and (min-width: 769px) and (max-width: 1365px) {
+@media only screen and (min-width: 769px) and (max-width: 1040px) {
     body {
         padding: 96px 12% 48px 12%;
     }
+
+    .results-grid #data-grid > thead > tr > th:nth-child(2) {
+        display: none;
+    }
+
+    .results-grid #data-grid > tbody > tr > td:nth-child(2) {
+        display: none;
+    }
 }
 
-@media only screen and (min-width: 1366px) and (max-width: 1919px) {
+@media only screen and (min-width: 1041px) and (max-width: 1365px) {
+    body {
+        padding: 96px 20% 48px 20%;
+    }
+}
+
+@media only screen and (min-width: 1366px) and (max-width: 1659px) {
     body {
         padding: 48px 25% 48px 25%;
     }
 }
 
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1660px) {
     body {
         padding: 96px 30% 48px 30%;
     }
@@ -187,6 +275,14 @@ aside a:hover {
 
 .results-grid {
     margin-top: 48px;
+    color: #757575;
+}
+
+h2 {
+    font-family: 'Source Code Pro';
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .results-grid #data-grid {
