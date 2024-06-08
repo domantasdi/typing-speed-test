@@ -4,6 +4,12 @@ const mistakesField = document.querySelector('.mistakes span');
 const timeField = document.querySelector('.time span b');
 const wpmField = document.querySelector('.wpm span');
 const accuracyField = document.querySelector('.accuracy span');
+const timestamp = Date.now();
+const table = document.querySelector('#data-grid .table-contents');
+const restartButton = document.querySelector('button');
+
+
+
 
 let timer
 const MAX_TIME = 60;
@@ -16,14 +22,42 @@ let isTyping = false;
 document.addEventListener("DOMContentLoaded", initialize);
 
 async function initialize() {
-    console.log(isTyping);
     if (inputField !== '') {
         clearTextInput();
     }
     setInitialFocus();
     const data = await loadText();
     displayText(data);
+    populateTable()
     handleTyping();
+}
+
+
+function populateTable() {
+    const tableData = localStorage.getItem('tableData');
+    if (!tableData) return;
+    const tableArray = JSON.parse(tableData);
+
+    tableArray.forEach(row => {
+        const { timestamp, mistakes, wpm, accuracy } = row;
+        updateTable(calculateDate(timestamp), mistakes, wpm, accuracy);
+    });
+}
+
+
+function updateTable(timestamp, mistakes, wpm, accuracy) {
+    let row = table.insertRow(0);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    let cell4 = row.insertCell(3);
+    let cell5 = row.insertCell(4);
+
+    cell1.innerText = calculateDate(timestamp);
+    cell2.innerText = mistakes;
+    cell3.innerText = wpm;
+    cell4.innerText = accuracy;
+    cell5.innerText = '0';
 }
 
 
@@ -39,6 +73,7 @@ async function loadText() {
 
 // Focuses the input field on any key down
 function setInitialFocus() {
+    inputField.disabled = false;
     document.addEventListener('keydown', () => inputField.focus());
     document.addEventListener('click', () => inputField.focus())
 }
@@ -66,6 +101,9 @@ function updateTimer() {
     }
 }
 
+function calculateDate(timestamp) {
+    return new Date(timestamp).toLocaleString('lt')
+}
 
 function calculateAccuracy() {
     let correct = document.querySelectorAll('.correct');
@@ -84,16 +122,50 @@ function calculateWPM() {
 
 function handleTyping() {
     const characters = textArea.querySelectorAll('letter');
-
+    handleEnterRestart()
     inputField.addEventListener('input', (event) => {
         processInput(event, characters);
     });
 }
 
+function handleEnterRestart() {
+    document.addEventListener('keydown', function(event) {
+        if (event.code == 'Enter') {
+            restartButton.click()
+        }
+    })
+}
+
 function endTyping() {
     inputField.value = '';
+    inputField.disabled = true;
     clearInterval(timer);
+    const wpm = calculateWPM();
+    const accuracy = calculateAccuracy()
+    const testResults = {
+        'timestamp': timestamp,
+        'mistakes': mistakes,
+        'wpm': wpm,
+        'accuracy': accuracy,
+        'performance': 0,
+        }
+        writeResultsToStorage(testResults);
+    updateTable(timestamp, mistakes, wpm, accuracy);
 }
+
+function writeResultsToStorage(testResults) {
+    let localResults = localStorage.getItem('tableData');
+
+    if (localResults === null) {
+        localResults = [];
+    } else {
+        localResults = JSON.parse(localResults);
+    }
+
+    localResults.push(testResults);
+    localStorage.setItem('tableData', JSON.stringify(localResults));
+}
+
 
 function processInput(event, characters) {
     calculateAccuracy();
@@ -163,8 +235,6 @@ function displayText(data) {
             textArea.querySelector('letter').classList.add('active')
         }, 10);
 }
-
-
 
 
 function clearTextInput() {
