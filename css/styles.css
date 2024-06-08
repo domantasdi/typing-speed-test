@@ -3,7 +3,7 @@ body {
     line-height: 200%;
     font-size: 18px;
     text-align: justify;
-    font-family: monospace;
+    font-family: 'Source Code Pro';
 }
 
 header {
@@ -21,7 +21,7 @@ header h1 {
 }
 
 .stats .results {
-    color: #999999;
+    color: #757575;
     font-size: 16px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -60,6 +60,11 @@ button {
 button:hover {
     border: 2px solid #1a1a1a;
     cursor: pointer;
+}
+
+button:focus {
+    outline: 4px solid #1a1a1a;
+    outline-offset: 2px;
 }
 
 .correct:not(:first-child) {
@@ -118,11 +123,19 @@ letter {
 }
 
 aside {
-    color: #c1c1c1;
+    color: #757575;
     margin-top: 48px;
-    font-family: arial;
+    font-family: 'Inter';
     font-size: 12px;
-    line-height: 18px;
+    line-height: 200%;
+}
+
+aside a {
+    color: #757575;
+}
+
+aside a:hover {
+    color: #425566;
 }
 
 @media (max-width: 360px) {
@@ -162,7 +175,7 @@ aside {
 
 @media only screen and (min-width: 1366px) and (max-width: 1919px) {
     body {
-        padding: 96px 20% 48px 20%;
+        padding: 48px 25% 48px 25%;
     }
 }
 
@@ -178,7 +191,8 @@ aside {
 
 .results-grid #data-grid {
     width: 100%;
-    font-size: 14px;
+    font-size: 12px;
+    font-family: 'Inter';
 }
 
 .results-grid #data-grid > thead > tr > th:not(:first-child) {

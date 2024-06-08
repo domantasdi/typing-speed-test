@@ -6,6 +6,9 @@ const wpmField = document.querySelector('.wpm span');
 const accuracyField = document.querySelector('.accuracy span');
 const timestamp = Date.now();
 const table = document.querySelector('#data-grid .table-contents');
+const restartButton = document.querySelector('button');
+
+
 
 
 let timer
@@ -19,14 +22,26 @@ let isTyping = false;
 document.addEventListener("DOMContentLoaded", initialize);
 
 async function initialize() {
-    console.log(isTyping);
     if (inputField !== '') {
         clearTextInput();
     }
     setInitialFocus();
     const data = await loadText();
     displayText(data);
+    populateTable()
     handleTyping();
+}
+
+
+function populateTable() {
+    const tableData = localStorage.getItem('tableData');
+    if (!tableData) return;
+    const tableArray = JSON.parse(tableData);
+
+    tableArray.forEach(row => {
+        const { timestamp, mistakes, wpm, accuracy } = row;
+        updateTable(calculateDate(timestamp), mistakes, wpm, accuracy);
+    });
 }
 
 
@@ -58,6 +73,7 @@ async function loadText() {
 
 // Focuses the input field on any key down
 function setInitialFocus() {
+    inputField.disabled = false;
     document.addEventListener('keydown', () => inputField.focus());
     document.addEventListener('click', () => inputField.focus())
 }
@@ -106,19 +122,50 @@ function calculateWPM() {
 
 function handleTyping() {
     const characters = textArea.querySelectorAll('letter');
-
+    handleEnterRestart()
     inputField.addEventListener('input', (event) => {
         processInput(event, characters);
     });
 }
 
+function handleEnterRestart() {
+    document.addEventListener('keydown', function(event) {
+        if (event.code == 'Enter') {
+            restartButton.click()
+        }
+    })
+}
+
 function endTyping() {
     inputField.value = '';
+    inputField.disabled = true;
     clearInterval(timer);
     const wpm = calculateWPM();
     const accuracy = calculateAccuracy()
+    const testResults = {
+        'timestamp': timestamp,
+        'mistakes': mistakes,
+        'wpm': wpm,
+        'accuracy': accuracy,
+        'performance': 0,
+        }
+        writeResultsToStorage(testResults);
     updateTable(timestamp, mistakes, wpm, accuracy);
 }
+
+function writeResultsToStorage(testResults) {
+    let localResults = localStorage.getItem('tableData');
+
+    if (localResults === null) {
+        localResults = [];
+    } else {
+        localResults = JSON.parse(localResults);
+    }
+
+    localResults.push(testResults);
+    localStorage.setItem('tableData', JSON.stringify(localResults));
+}
+
 
 function processInput(event, characters) {
     calculateAccuracy();
@@ -188,8 +235,6 @@ function displayText(data) {
             textArea.querySelector('letter').classList.add('active')
         }, 10);
 }
-
-
 
 
 function clearTextInput() {
