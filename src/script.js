@@ -7,6 +7,8 @@ const accuracyField = document.querySelector('.accuracy span');
 const timestamp = Date.now();
 const table = document.querySelector('#data-grid .table-contents');
 const restartButton = document.querySelector('button');
+const tableData = localStorage.getItem('tableData');
+const tableArray = JSON.parse(tableData);
 
 
 
@@ -34,18 +36,16 @@ async function initialize() {
 
 
 function populateTable() {
-    const tableData = localStorage.getItem('tableData');
     if (!tableData) return;
-    const tableArray = JSON.parse(tableData);
 
     tableArray.forEach(row => {
-        const { timestamp, mistakes, wpm, accuracy } = row;
-        updateTable(calculateDate(timestamp), mistakes, wpm, accuracy);
+        const { timestamp, mistakes, wpm, accuracy, performance } = row;
+        updateTable(calculateDate(timestamp), mistakes, wpm, accuracy, performance);
     });
 }
 
 
-function updateTable(timestamp, mistakes, wpm, accuracy) {
+function updateTable(timestamp, mistakes, wpm, accuracy, performance) {
     let row = table.insertRow(0);
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
@@ -57,7 +57,20 @@ function updateTable(timestamp, mistakes, wpm, accuracy) {
     cell2.innerText = mistakes;
     cell3.innerText = wpm;
     cell4.innerText = accuracy;
-    cell5.innerText = '0';
+    cell5.innerText = performance;
+
+    if (performance === '–') {
+        cell5.innerText = '–';
+    } else if (performance === 0) {
+        cell5.classList.add('even')
+        cell5.innerText = `Even`;
+    } else if (performance < 0) {
+        cell5.classList.add('worse')
+        cell5.innerText = `Worse by ${Math.abs(performance)}`;
+    } else {
+        cell5.classList.add('better')
+        cell5.innerText = `Better by ${performance}`;
+    }
 }
 
 
@@ -101,6 +114,17 @@ function updateTimer() {
     }
 }
 
+function calculatePerformance(wpm) {
+    if (!tableData) {
+        return '–'
+    }
+
+    let previousWpmIndex = tableArray.length - 1;
+    let finalScore = wpm - tableArray[previousWpmIndex].wpm;
+
+    return finalScore
+}
+
 function calculateDate(timestamp) {
     return new Date(timestamp).toLocaleString('lt')
 }
@@ -142,15 +166,16 @@ function endTyping() {
     clearInterval(timer);
     const wpm = calculateWPM();
     const accuracy = calculateAccuracy()
+    const performance = calculatePerformance(wpm)
     const testResults = {
         'timestamp': timestamp,
         'mistakes': mistakes,
         'wpm': wpm,
         'accuracy': accuracy,
-        'performance': 0,
+        'performance': performance,
         }
         writeResultsToStorage(testResults);
-    updateTable(timestamp, mistakes, wpm, accuracy);
+    updateTable(timestamp, mistakes, wpm, accuracy, performance);
 }
 
 function writeResultsToStorage(testResults) {
