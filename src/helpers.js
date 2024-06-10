@@ -1,4 +1,4 @@
-import { inputField, timeField, mistakesField, wpmField, accuracyField, timestamp } from './domElements.js';
+import { inputField, timeField, mistakesField, wpmField, accuracyField, timestamp, restartButton } from './domElements.js';
 import { updateTable, writeResultsToStorage } from './storage.js';
 import { tableData, tableArray } from './domElements.js';
 
