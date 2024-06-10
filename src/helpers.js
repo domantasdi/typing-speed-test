@@ -144,3 +144,30 @@ function calculateWPM() {
     const typedWords = (characterIndex - mistakes) / 5;
     return Math.round(typedWords / elapsedMinutes) || 0;
 }
+
+export function handleEscReset() {
+    document.addEventListener('keydown', function (event) {
+        if (event.code == 'Escape') {
+            resetText();
+        }
+    });
+}
+
+export function resetText() {
+    clearInterval(timer);
+    timeLeft = MAX_TIME;
+    characterIndex = 0;
+    mistakes = 0;
+    isTyping = false;
+    inputField.value = '';
+    inputField.disabled = false;
+    timeField.innerText = timeLeft;
+    mistakesField.innerText = mistakes;
+    wpmField.innerText = 0;
+    accuracyField.innerText = '0 %';
+    const characters = textArea.querySelectorAll('letter');
+    characters.forEach(letter => letter.classList.remove('correct', 'incorrect', 'active'));
+    if (characters.length > 0) {
+        characters[0].classList.add('active');
+    }
+}

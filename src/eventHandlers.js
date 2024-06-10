@@ -1,6 +1,6 @@
 import { inputField } from './domElements.js';
 import { loadText, displayText } from './textLoader.js';
-import { handleTyping, setInitialFocus, handleEnterRestart } from './helpers.js';
+import { handleTyping, setInitialFocus, handleEscReset } from './helpers.js';
 import { populateTable } from './storage.js';
 
 export async function initialize() {
@@ -12,6 +12,7 @@ export async function initialize() {
     displayText(data);
     populateTable();
     handleTyping();
+    handleEscReset();
 }
 
 function clearTextInput() {
