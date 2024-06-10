@@ -310,3 +310,12 @@ h2 {
 .col-timestamp-header, .col-mistakes-header, .col-wpm-header, .col-accuracy-header, .col-direction-header {
     font-size: 14px;
 }
+
+.codeBlock {
+    font-family: 'Source Code Pro';
+    font-weight: 500;
+    border-radius: 4px;
+    margin: 4px 0px;
+    padding: 4px 4px;
+    background-color: #f6f6f6;
+}
