@@ -11,8 +11,6 @@ const tableData = localStorage.getItem('tableData');
 const tableArray = JSON.parse(tableData);
 
 
-
-
 let timer
 const MAX_TIME = 60;
 let timeLeft = MAX_TIME;
