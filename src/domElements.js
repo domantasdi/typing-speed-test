@@ -1,3 +1,4 @@
+// Constants for all the necessary DOM elements
 export const textArea = document.querySelector('#textArea');
 export const inputField = document.querySelector('.input-field');
 export const mistakesField = document.querySelector('.mistakes span');
