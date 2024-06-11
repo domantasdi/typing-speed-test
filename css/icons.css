@@ -11,17 +11,17 @@
 }
 
 .notApplicable::after {
-    background-image: url(/src/svg/not_applicable.svg);
+    background-image: url(/src/images/not_applicable.svg);
 }
 
 .worse::after {
-    background-image: url(/src/svg/worse.svg);
+    background-image: url(/src/images/worse.svg);
 }
 
 .even::after {
-    background-image: url(/src/svg/even.svg);
+    background-image: url(/src/images/even.svg);
 }
 
 .better::after {
-    background-image: url(/src/svg/better.svg);
+    background-image: url(/src/images/better.svg);
 }
