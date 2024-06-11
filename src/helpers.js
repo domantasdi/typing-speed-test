@@ -28,14 +28,6 @@ export function handleEnterRestart() {
     });
 }
 
-/// Re-enables the input field and focuses on it on a click or a keydown event
-export function setInitialFocus() {
-    inputField.disabled = false;
-    document.addEventListener('keydown', () => inputField.focus());
-    document.addEventListener('click', () => inputField.focus());
-}
-
-
 /// Processes the input event
 export function processInput(event, characters) {
     calculateAccuracy();
