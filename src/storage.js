@@ -2,6 +2,8 @@ import { table } from './domElements.js';
 import { tableData, tableArray } from './domElements.js';
 import { calculateDate } from './helpers.js';
 
+/// Populates the data table with the results
+/// from the data array function
 export function populateTable() {
     if (!tableData) return;
     tableArray.forEach(row => {
@@ -10,6 +12,7 @@ export function populateTable() {
     });
 }
 
+/// Updates the table with the results
 export function updateTable(timestamp, mistakes, wpm, accuracy, performance) {
     let row = table.insertRow(0);
     let cell1 = row.insertCell(0);
@@ -38,6 +41,9 @@ export function updateTable(timestamp, mistakes, wpm, accuracy, performance) {
     }
 }
 
+/// Writes the results to the local storage. If the storage is
+/// empty (i.e. the first attempt), the value is set to an
+/// empty array.
 export function writeResultsToStorage(testResults) {
     let localResults = localStorage.getItem('tableData');
     if (localResults === null) {
