@@ -4,7 +4,8 @@ import { textArea } from './domElements.js';
 export async function loadText() {
     try {
         const response = await fetch('http://metaphorpsum.com/paragraphs/1');
-        return await response.text();
+        const formattedResponse = await response.text()
+        displayText(formattedResponse)
     } catch (error) {
         console.error('Error fetching text:', error);
     }
@@ -12,7 +13,7 @@ export async function loadText() {
 
 /// Displays the text by splitting the received paragraph
 /// into separate letters and surrounding them with a <letter> tag
-export function displayText(data) {
+function displayText(data) {
     const characters = data.split('');
     textArea.innerHTML = characters.map(character => `<letter>${character}</letter>`).join('');
     setTimeout(() => {
