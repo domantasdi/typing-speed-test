@@ -49,8 +49,17 @@ export function writeResultsToStorage(testResults) {
     if (localResults === null) {
         localResults = [];
     } else {
-        localResults = JSON.parse(localResults);
+        try {
+            localResults = JSON.parse(localResults);
+        } catch (error) {
+            console.log(`There was an error while fetching data: ${error}.`)
+        }
     }
-    localResults.push(testResults);
-    localStorage.setItem('tableData', JSON.stringify(localResults));
+
+    try {
+        localResults.push(testResults);
+        localStorage.setItem('tableData', JSON.stringify(localResults));
+    } catch (error) {
+        console.log(`There was an error while saving data: ${error}.`)
+    }
 }
