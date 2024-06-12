@@ -100,24 +100,7 @@ letter {
 .active {
     color: #003049;
     font-weight: 700;
-}
-
-.active::before {
-    content: "";
-    position: absolute;
-    opacity: 0;
-    left: 0;
-    bottom: 0;
-    height: 1px;
-    width: 100%;
-    background: #003049;
-    animation: blink 1s ease-in-out infinite;
-}
-
-@keyframes blink {
-    50%{
-        opacity: 1;
-    }
+    border-bottom: 1px solid #003049;
 }
 
 .input-field {
