@@ -30,7 +30,7 @@ Special keys:
 - In order to re-try the same text, hit `ESC` while typing;
 - Hit `Enter` to fetch a new text paragraph.
 
-As soon as you stop typing or the timer runs out, the input field will be disabled and you will not be able to type anymore.
+As soon as you finish typing the text or the timer runs out, the input field will be disabled and you will not be able to type anymore.
 
 The results in the data table are loaded from and saved to the local storage.
 
