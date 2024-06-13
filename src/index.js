@@ -9,7 +9,7 @@ async function initialize() {
         clearTextInput();
     }
     setInitialFocus();
-    const data = await loadText();
+    await loadText();
     populateTable();
     handleTyping();
     handleEscReset();
