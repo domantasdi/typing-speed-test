@@ -30,6 +30,7 @@ function clearTextInput() {
 function setInitialFocus() {
     inputField.disabled = false;
     document.addEventListener('keydown', () => inputField.focus());
+    document.addEventListener('click', () => inputField.focus());
 }
 
 /// Initializes once DOM content is loaded
