@@ -1,11 +1,13 @@
 import { textArea } from './domElements.js';
+import { WORD_COUNT } from './config.js'
 
 /// Loads the text from the Metaphorsum project
 export async function loadText() {
     try {
-        const response = await fetch('http://metaphorpsum.com/paragraphs/1');
+        const response = await fetch(`https://random-word-form.herokuapp.com/random/noun?count=${WORD_COUNT}`);
         const formattedResponse = await response.text()
-        displayText(formattedResponse)
+        let formattedText = JSON.parse(formattedResponse).join(' ');
+        displayText(formattedText)
     } catch (error) {
         console.error('Error fetching text:', error);
     }
