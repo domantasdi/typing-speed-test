@@ -87,9 +87,6 @@ export function endTyping() {
     updateTable(timestamp, mistakes, wpm, accuracy, performance);
 }
 
-///
-/// const INCORRECT = 'incorrect'
-
 /// Handles the backspace
 function handleBackspace(characters) {
     characterIndex--;
@@ -171,7 +168,8 @@ export function calculateDate(timestamp) {
 /// typed correctly, dividing it by the current character index and
 /// expressing the value in %
 function calculateAccuracy() {
-    let correct = document.querySelectorAll(CORRECT_LETTER_CLASS);
+    let correct = document.querySelectorAll('.correct');
+    console.log(correct)
     let correctCount = correct.length;
     return Math.round((correctCount / characterIndex) * 100);
 }
