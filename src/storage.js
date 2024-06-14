@@ -2,6 +2,9 @@ import { table } from './domElements.js';
 import { tableData, tableArray } from './domElements.js';
 import { calculateDate } from './helpers.js';
 
+
+/// Table functions should
+
 /// Populates the data table with the results
 /// from the data array function
 export function populateTable() {

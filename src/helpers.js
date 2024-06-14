@@ -1,18 +1,34 @@
-import { inputField, timeField, mistakesField, wpmField, accuracyField, timestamp, restartButton } from './domElements.js';
+import {
+    inputField,
+    timeField,
+    mistakesField,
+    wpmField,
+    accuracyField,
+    restartButton,
+} from './domElements.js';
+
+import {
+    INCORRECT_LETTER_CLASS,
+    CORRECT_LETTER_CLASS,
+    ACTIVE_LETTER_CLASS,
+} from './constants.js';
+
+import { MAX_TIME } from './config.js';
+
 import { updateTable, writeResultsToStorage } from './storage.js';
 import { tableData, tableArray } from './domElements.js';
 
 let timer;
-const MAX_TIME = 60;
 let timeLeft = MAX_TIME;
 let characterIndex = 0;
 let mistakes = 0;
 let isTyping = false;
 
-/// A function, hanling typing itself.
+/// A function, handling typing itself.
 /// The input field here listens to events and processes them
 export function handleTyping() {
     const characters = textArea.querySelectorAll('letter');
+    handleEscReset();
     handleEnterRestart();
     inputField.addEventListener('input', (event) => {
         processInput(event, characters);
@@ -61,27 +77,26 @@ export function endTyping() {
     inputField.value = '';
     inputField.disabled = true;
     clearInterval(timer);
+    const timestamp = Date.now();
     const wpm = calculateWPM();
     const accuracy = calculateAccuracy();
     const performance = calculatePerformance(wpm);
-    const testResults = {
-        'timestamp': timestamp,
-        'mistakes': mistakes,
-        'wpm': wpm,
-        'accuracy': accuracy,
-        'performance': performance,
-    };
+    const testResults = { timestamp, mistakes, wpm, accuracy, performance }
+    /// I could destructure the above { ... , ... }
     writeResultsToStorage(testResults);
     updateTable(timestamp, mistakes, wpm, accuracy, performance);
 }
 
+///
+/// const INCORRECT = 'incorrect'
+
 /// Handles the backspace
 function handleBackspace(characters) {
     characterIndex--;
-    if (characters[characterIndex].classList.contains('incorrect')) {
+    if (characters[characterIndex].classList.contains(INCORRECT_LETTER_CLASS)) {
         mistakes--;
     }
-    characters[characterIndex].classList.remove('correct', 'incorrect');
+    characters[characterIndex].classList.remove(CORRECT_LETTER_CLASS, INCORRECT_LETTER_CLASS);
     updateActiveCharacter(characters);
 }
 
@@ -91,9 +106,9 @@ function handleBackspace(characters) {
 function handleCharacterInput(typedChar, characters) {
     const charToCheck = characters[characterIndex].innerText;
     if (charToCheck === typedChar) {
-        characters[characterIndex].classList.add('correct');
+        characters[characterIndex].classList.add(CORRECT_LETTER_CLASS);
     } else {
-        characters[characterIndex].classList.add('incorrect');
+        characters[characterIndex].classList.add(INCORRECT_LETTER_CLASS);
         mistakes++;
     }
     characterIndex++;
@@ -103,9 +118,9 @@ function handleCharacterInput(typedChar, characters) {
 
 /// Updates the active character by adding the blinker
 function updateActiveCharacter(characters) {
-    characters.forEach(letter => letter.classList.remove('active'));
+    characters.forEach(letter => letter.classList.remove(ACTIVE_LETTER_CLASS));
     if (characterIndex < characters.length) {
-        characters[characterIndex].classList.add('active');
+        characters[characterIndex].classList.add(ACTIVE_LETTER_CLASS);
     }
 }
 
@@ -156,7 +171,7 @@ export function calculateDate(timestamp) {
 /// typed correctly, dividing it by the current character index and
 /// expressing the value in %
 function calculateAccuracy() {
-    let correct = document.querySelectorAll('.correct');
+    let correct = document.querySelectorAll(CORRECT_LETTER_CLASS);
     let correctCount = correct.length;
     return Math.round((correctCount / characterIndex) * 100);
 }
@@ -192,8 +207,11 @@ export function resetText() {
     wpmField.innerText = 0;
     accuracyField.innerText = '0 %';
     const characters = textArea.querySelectorAll('letter');
-    characters.forEach(letter => letter.classList.remove('correct', 'incorrect', 'active'));
+    characters.forEach(letter => letter.classList.remove(CORRECT_LETTER_CLASS, INCORRECT_LETTER_CLASS, ACTIVE_LETTER_CLASS));
     if (characters.length > 0) {
-        characters[0].classList.add('active');
+        characters[0].classList.add(ACTIVE_LETTER_CLASS);
     }
 }
+
+
+/// helper files are usually utility files that store reusable functions

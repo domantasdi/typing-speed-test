@@ -1,10 +1,14 @@
-import { inputField } from './domElements.js';
+import { inputField, textArea } from './domElements.js';
 import { loadText } from './textLoader.js';
-import { handleTyping, handleEscReset } from './helpers.js';
+import { handleTyping } from './helpers.js';
 import { populateTable } from './storage.js';
+import { MAX_TIME } from './config.js';
+import { timeField } from './domElements.js';
 
 /// Initial function
 async function initialize() {
+    timeField.innerText = MAX_TIME;
+    textArea.innerText = 'Please wait...';
     if (inputField !== '') {
         clearTextInput();
     }
@@ -12,7 +16,6 @@ async function initialize() {
     await loadText();
     populateTable();
     handleTyping();
-    handleEscReset();
 }
 
 /// Clears the text input if it's not clear
@@ -27,7 +30,6 @@ function clearTextInput() {
 function setInitialFocus() {
     inputField.disabled = false;
     document.addEventListener('keydown', () => inputField.focus());
-    document.addEventListener('click', () => inputField.focus());
 }
 
 /// Initializes once DOM content is loaded
