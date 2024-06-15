@@ -1,11 +1,30 @@
 @import url("icons.css");
 
+@font-face {
+    font-family: "Source Code Pro", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    src: url(/public/fonts/SourceCodePro-Light.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "slnt" 0;
+    src: url(/public/fonts/Inter-Regular.ttf) format('truetype');
+}
+
+
 body {
     padding: 96px 20% 48px 20%;
     line-height: 200%;
     font-size: 18px;
     text-align: justify;
-    font-family: 'Source Code Pro';
+    font-family: 'Source Code Pro', monospace;
 }
 
 header {
@@ -112,7 +131,7 @@ letter {
 aside {
     color: #757575;
     margin-top: 48px;
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     font-size: 12px;
     line-height: 200%;
 }
@@ -264,7 +283,7 @@ aside a:hover {
 }
 
 h2 {
-    font-family: 'Source Code Pro';
+    font-family: 'Source Code Pro', monospace;
     color: #1a1a1a;
     font-weight: 600;
     font-size: 14px;
@@ -273,7 +292,7 @@ h2 {
 .results-grid #data-grid {
     width: 100%;
     font-size: 12px;
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
 }
 
 .results-grid #data-grid > thead > tr > th:not(:first-child) {
@@ -293,7 +312,7 @@ h2 {
 }
 
 .codeBlock {
-    font-family: 'Source Code Pro';
+    font-family: 'Source Code Pro', monospace;
     font-weight: 500;
     border-radius: 4px;
     margin: 4px 0px;
