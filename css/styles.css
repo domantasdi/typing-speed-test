@@ -312,6 +312,7 @@ h2 {
 }
 
 .codeBlock {
+    color: #5c5c5c;
     font-family: 'Source Code Pro', monospace;
     font-weight: 500;
     border-radius: 4px;
