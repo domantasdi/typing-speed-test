@@ -169,7 +169,6 @@ export function calculateDate(timestamp) {
 /// expressing the value in %
 function calculateAccuracy() {
     let correct = document.querySelectorAll('.correct');
-    console.log(correct)
     let correctCount = correct.length;
     return Math.round((correctCount / characterIndex) * 100);
 }

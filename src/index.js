@@ -1,5 +1,5 @@
 import { inputField, textArea } from './domElements.js';
-import { loadText } from './textLoader.js';
+import { loadText } from './textHandlers.js';
 import { handleTyping } from './helpers.js';
 import { populateTable } from './storage.js';
 import { MAX_TIME } from './config.js';
