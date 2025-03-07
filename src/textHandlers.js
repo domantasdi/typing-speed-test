@@ -23,7 +23,7 @@ async function fetchWords() {
   const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
   try {
-    const response = await fetch(`https://random-word-api.herokuapp.com/word?number=${WORD_COUNT}&length=5`, { signal: controller.signal });
+    const response = await fetch(`https://random-word-api.herokuapp.com/word?number=${WORD_COUNT}`, { signal: controller.signal });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
